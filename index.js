@@ -1,6 +1,7 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const path = require('path');
+const readlineSync = require('readline-sync');
 
 
 
@@ -9,12 +10,15 @@ const app = express();
 
 const Posts = require('./posts.js');
 
-mongoose.connect('mongodb+srv://abalbuquerque:RBuKCHyusYBr5Avi@cluster0.rssbawd.mongodb.net/ATDNews?retryWrites=true&w=majority',{useNewUrlParser: true, useUnifiedTopology: true}).then(()=>
+var login = readlineSync.question('Digite o login: ');
+var senha = readlineSync.question('Digite a senha: ');
+
+mongoose.connect(`mongodb+srv://${login}:${senha}@cluster0.rssbawd.mongodb.net/ATDNews?retryWrites=true&w=majority`,{useNewUrlParser: true, useUnifiedTopology: true}).then(()=>
 {
     console.log('conectado com sucesso!');
 }).catch((err)=>
 {
-    console.log(err.message);
+    console.log(err.message);   
 })
 
 app.use(bodyParser.json());
